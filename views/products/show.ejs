@@ -1,0 +1,55 @@
+<%- layout('./layouts/boilerplate') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <img src="<%= product.image %>" class="img-fluid card-img-top object-fit">
+            <div class="card-body">
+                <h5 class="card-title"><%= product.name %></h5>
+                <p class="card-text"><%= product.description %></p>
+            </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><b>Standard Price :</b> &#8377; <%= product.price %> per kg</li>
+                  <li class="list-group-item"><b>Group Buy Price :</b> &#8377; <%= product.price*0.7 %> per kg</li>
+                  <li class="list-group-item"><b>Category :</b> <%= product.category %></li>
+                  <li class="list-group-item"><b>Shelf Life:</b> <%= product.shelfLife %> days</li>
+                  
+                  <% if(!currentUser || currentUser.user_type === "consumer"){ %>
+                    <li class="list-group-item"><b>Vendor Details :</b> Name - <%= product.vendor.username %>, Location - <%= product.vendor.address %>, Mobile Number - <%= product.vendor.mobile %></li>
+                  <% } else{%>
+                    <li class="list-group-item"><b>Quantity :</b> <%= product.quantity %> Kgs</li>
+                  <% } %>
+                </ul>
+                <div class="card-body">
+                    <% if(!currentUser || currentUser.user_type === "consumer"){ %>
+
+                        <% if(currentUser && currentUser.cart.includes(product._id)){ %>
+                            <form class="d-inline" action="/products/<%= product._id %>/cart?_method=DELETE" method="POST">
+                                <button class="btn btn-secondary card-link">&#128722;Remove from Cart</button>
+                            </form>
+                        <% } else{ %>
+                            <form class="d-inline" action="/products/<%= product._id %>/cart" method="POST">
+                                <button class="btn btn-primary card-link">&#128722;Add to Cart</button>
+                            </form>
+                        <% } %>
+
+                        <% if(currentUser && currentUser.orders.includes(product._id)){ %>
+                            <form class="d-inline" action="/products/<%= product._id %>/orders?_method=DELETE" method="POST">
+                                <button class="btn btn-danger card-link">&#128722;Cancel Order</button>
+                            </form>
+                        <% } else{ %>
+                            <form class="d-inline" action="/products/<%= product._id %>/orders/checkout">
+                                <button class="btn btn-warning card-link">&#128184;Buy Now</button>
+                            </form>
+                        <% } %>
+
+                    <% } else{ %>
+                        <a class="btn btn-info card-link" href="/products/<%= product._id %>/edit">Edit</a>
+                        <form class="d-inline" action="/products/<%= product._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger card-link">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+    </div>
+</div>

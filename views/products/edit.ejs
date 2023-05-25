@@ -1,0 +1,49 @@
+<%- layout('./layouts/boilerplate') %>
+
+<div class="row mb-3 justify-content-center">
+    <div class="col-md-8">         
+        <h3 class="text-center h3">Edit Product</h3>
+        <form action="/products/<%= product._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="name">Name</label>
+                <input class="form-control" type="text" name="name" placeholder="name" id="name" value="<%= product.name%>" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="category">Category</label>
+                <select class="form-select" name="category" required>
+                    <% for(let category of categories){ %>
+                        <option value="<%= category %>" <%= (category == product.category) ? "selected" : "" %>><%= category %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Product Details</label>
+                <textarea class="form-control" name="description" id="description" cols="30" rows="3" placeholder="product details" required><%= product.description %></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image url</label>
+                <input class="form-control" type="text" name="image" placeholder="url" id="image" value="<%= product.image %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="price">Price per kg</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">&#8377;</span>
+                    </div>
+                    <input type="number" class="form-control" id="price" placeholder="0" name="price" value="<%= product.price %>" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="quantity">Quantity</label>
+                <input class="form-control" type="text" name="quantity" placeholder="quantity in kgs" id="quantity" value="<%= product.quantity %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="shelfLife">Shelf Life</label>
+                <input class="form-control" type="text" name="shelfLife" placeholder="shelf life in days" id="shelfLife" value="<%= product.shelfLife %>"required>
+            </div>
+            <button class="btn btn-success">Update</button>
+        </form>
+    </div>
+</div>
+
+<script src="/validateForms.js"></script>

@@ -1,0 +1,17 @@
+<%- layout('layouts/boilerplate') %>
+
+<div class="row row-cols-2 row-cols-md-3">
+    <% for(let product of user.sold_products){ %>
+        <div class="col">
+            <div class="card mb-3">
+                <img class="img-fluid object-fit card-img-top" src="<%= product.image %>" height="200px">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><%= product.name %></h5>
+                    <div>Standard price : &#8377; <%= product.price %> per kg </div>
+                    <div class="mb-2">Group buy price : &#8377; <%= product.price*0.7 %> per kg</div>
+                    <a class="btn btn-primary" href="/products/<%= product._id %>">View product</a>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
