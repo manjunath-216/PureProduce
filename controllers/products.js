@@ -14,7 +14,6 @@ var instance = new Razorpay({
 
 module.exports.renderIndex = catchAsync(async (req, res) => {
     const products = await Product.find();
-    console.log(products)
     res.render('products/index', {products});
 })
 
