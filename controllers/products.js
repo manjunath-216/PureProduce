@@ -7,6 +7,7 @@ const categories = require('../utils/categories')
 const User = require('../models/user');
 
 const Razorpay = require('razorpay');
+const { dashboard } = require('./users');
 var instance = new Razorpay({
     key_id: 'rzp_test_BUP7HBUiCiHb4b',
     key_secret: '59DFNxqKfoKFPPjczYe7QnqN',
@@ -128,10 +129,16 @@ module.exports.payVerify = catchAsync(async (req, res) => {
     
     if(expectedSignature === req.body.razorpay_signature){
      // console.log("Payment Success");
-      user.orders.push(req.body.product_id);
+        user.orders.push(req.body.product_id);
         await user.save();
-       // console.log(`/products/${req.body.product_id}`);
-        req.flash('success', 'successfully placed your order');
+        const product = await Product.findById(req.body.product_id);
+        const vendor =  await User.findById(product.vendor);
+        const details = {product: req.body.product_id, buyer: user.username, delivery_address: user.address};
+        vendor.dashboard.push(details);
+        await vendor.save();
+       //console.log(vendor);
+        // console.log(`/products/${req.body.product_id}`);
+        // req.flash('success', 'successfully placed your order');
         // res.setHeader("Content-Type", "text/html")
         // res.redirect(`/products/${req.body.product_id}`);
         // res.redirect(`/users/${req.body.user_id}/orders`);
@@ -147,6 +154,11 @@ module.exports.cancel_order = catchAsync(async (req, res) => {
     const index = user.orders.indexOf(id);
     user.orders.splice(index, 1);
     await user.save();
+    const product = await Product.findById(id);
+    const vendor = await User.findById(product.vendor);
+    vendor.dashboard = vendor.dashboard.filter((item) => !(item.product.equals(id) && user.username === item.buyer));
+    await vendor.save();
+    //console.log(vendor.dashboard);
     req.flash('success', 'successfully cancelled your order');
     res.redirect(`/products/${id}`);
 })

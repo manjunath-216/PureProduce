@@ -1,0 +1,17 @@
+<%- layout('layouts/boilerplate') %>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mb-3">
+    <% for(let order of orders){ %>
+        <div class="col">
+            <div class="card mb-3">
+                <img class="img-fluid object-fit card-img-left" src="<%= order.product.image %>" height="200px">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><%= order.product.name %></h5>
+                    <div>Buyer : <%= order.buyer %></div>
+                    <div class="mb-2">Delivery Address : <%= order.delivery_address %></div>
+                    <!-- <a class="btn btn-primary" href="/products/<%= order.product._id %>">View Details</a> -->
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>

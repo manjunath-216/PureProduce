@@ -20,5 +20,7 @@ router.get('/users/:id/cart', users.cart)
 
 router.get('/users/:id/orders', users.orders)
 
+router.get('/users/:id/dashboard', users.dashboard)
+
 
 module.exports = router;

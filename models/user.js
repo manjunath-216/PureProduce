@@ -31,6 +31,18 @@ const userSchema = new Schema({
     orders: [{
         type: Schema.Types.ObjectId, 
         ref: 'Product'
+    }],
+    dashboard: [{
+        product : {
+            type: Schema.Types.ObjectId, 
+            ref: 'Product'
+        },
+        buyer: {
+            type: String
+        },
+        delivery_address: {
+            type: String
+        }
     }]
 })
 

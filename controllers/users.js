@@ -69,3 +69,11 @@ module.exports.orders = catchAsync( async (req, res) => {
     res.render('users/orders', {user});
 })
 
+module.exports.dashboard = catchAsync( async (req, res) => {
+    const {id} = req.params;
+    const user = await User.findById(id).populate('dashboard.product');
+    console.log(user.dashboard);
+    res.render('users/dashboard', {orders : user.dashboard});
+})
+
+
