@@ -10,7 +10,7 @@
             </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item"><b>Standard Price :</b> &#8377; <%= product.price %> per kg</li>
-                  <li class="list-group-item"><b>Group Buy Price :</b> &#8377; <%= product.price*0.7 %> per kg</li>
+                  <li class="list-group-item"><b>Group Buy Price :</b> &#8377; <%= Math.floor(product.price*0.7) %> per kg</li>
                   <li class="list-group-item"><b>Category :</b> <%= product.category %></li>
                   <li class="list-group-item"><b>Shelf Life:</b> <%= product.shelfLife %> days</li>
                   
