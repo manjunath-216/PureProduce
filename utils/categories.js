@@ -1,1 +1,1 @@
-module.exports =['Organic Fruits', 'Organic Vegetables', 'Organic Commodities']
+module.exports =['Organic Fruits', 'Organic Vegetables', 'Organic Commodities', 'Subscription Box']

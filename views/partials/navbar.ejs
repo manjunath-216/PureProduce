@@ -8,7 +8,7 @@
         <div class="navbar-nav">
             <a class="nav-link" href="/">Home</a>
             <% if(!currentUser || currentUser.user_type === "consumer"){ %>
-              <a class="nav-link" href="/products?category=all">View Products</a>
+              <a class="nav-link" href="/products">View Products</a>
             <% }%>
             <% if(currentUser){ %>
               <% if(currentUser.user_type === "consumer"){ %>

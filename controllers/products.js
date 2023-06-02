@@ -14,7 +14,23 @@ var instance = new Razorpay({
 });
 
 module.exports.renderIndex = catchAsync(async (req, res) => {
-    const products = await Product.find();
+    let products;
+    let {category} = req.query;
+    if(category === "organic_fruits"){
+        products = await Product.find({category: "Organic Fruits"});
+    }
+    else if(category === "organic_vegetables"){
+        products = await Product.find({category: "Organic Vegetables"});
+    }
+    else if(category === "organic_commodities"){
+        products = await Product.find({category: "Organic Commodities"});
+    }
+    else if(category === "subscription_box"){
+        products = await Product.find({category: "Subscription Box"});
+    }
+    else{
+        products = await Product.find();
+    }
     res.render('products/index', {products});
 })
 
