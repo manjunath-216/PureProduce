@@ -99,6 +99,10 @@ app.get('/', (req, res) => {
     res.render('home', {categories});
 })
 
+app.get('/whyus', (req, res) => {
+    res.render('whyus');
+})
+
 app.get('/payment_success', (req, res) => {
     res.render('products/payment_success.ejs');
 })
